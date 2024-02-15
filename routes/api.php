@@ -28,6 +28,7 @@ Route::middleware(['auth:sanctum', 'super.admin'])->group(function () {
         Route::post('update/{id}', [UserController::class, 'update'])->name('users.update');
         Route::delete('delete/{id}', [UserController::class, 'destroy'])->name('users.delete');
     });
-});
 
-Route::post('/create-task', [ToDoController::class, 'storeToDo']);
+    Route::get('/task/{id}', [ToDoController::class, 'viewTask']);
+    Route::post('/create-task', [ToDoController::class, 'storeToDo']);
+});

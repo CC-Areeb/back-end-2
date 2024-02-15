@@ -24,6 +24,7 @@ class ToDoRequest extends FormRequest
         return [
             "task_name"=> "nullable|string",
             "task_description"=> "nullable|string",
+            "task_creator"=> "nullable",
             "user_id" => "nullable",
             "start_date"=> "string|nullable",
             "end_date"=> "string|nullable",
