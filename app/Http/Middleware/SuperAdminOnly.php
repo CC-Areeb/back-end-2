@@ -17,7 +17,7 @@ class SuperAdminOnly
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Gate::allows("superadmin")) {
+        if (Gate::allows("superadmin") && auth()->user()->super_admin == 1) {
             return $next($request);
         }
         abort(403, 'You are unauthorized to perform this action');

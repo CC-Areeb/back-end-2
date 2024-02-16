@@ -29,14 +29,19 @@ class CreateAdminUsers extends Command
     {
         $name = $this->ask('What is your name?');
         $email = $this->ask('Enter an email');
-        $password = $this->secret('Enter a temporary password');
-        User::create([
-            'name' => $name,
-            'email' => $email,
-            'password' => Hash::make($password),
-            'account_status' => 'active',
-            'admin' => true,
-        ]);
-        $this->info('Admin account created successfully!');
+        $password = $this->secret('Enter a password');
+
+        if (!empty($password) && !empty($name) && !empty($email)){
+            User::create([
+                'name' => $name,
+                'email' => $email,
+                'password' => Hash::make($password),
+                'account_status' => 'active',
+                'admin' => true,
+            ]);
+            $this->info('Admin account created successfully!');
+        } else {
+            $this->info('Please try again');
+        }
     }
 }

@@ -30,15 +30,19 @@ class CreateSuperAdmin extends Command
         $name = $this->ask('Super admin name: ');
         $email = $this->ask('Super admin email: ');
         $password = $this->ask('Super admin password: ');
-        User::create([
-            'name' => $name,
-            'email' => $email,
-            'password' => $password ? Hash::make($password) : 'password',
-            'super_admin' => 1,
-            'admin' => 0,
-            'user' => 0,
-            'account_status' => 'active'
-        ]);
-        $this->info("Successfully created super admin user.");
+        if (!empty($password) && !empty($name) && !empty($email)) {
+            User::create([
+                'name' => $name,
+                'email' => $email,
+                'password' => $password ? Hash::make($password) : 'password',
+                'super_admin' => 1,
+                'admin' => 0,
+                'user' => 0,
+                'account_status' => 'active'
+            ]);
+            $this->info("Successfully created super admin user.");
+        } else {
+            $this->info("Please try again");
+        }
     }
 }

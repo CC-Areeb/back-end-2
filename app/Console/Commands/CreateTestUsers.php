@@ -32,14 +32,12 @@ class CreateTestUsers extends Command
 
     protected function createTestUsers()
     {
-        // Create test users
+        // Create active test users
         $count = $this->ask('How many test users do you want to create?');
-
         if (!is_numeric($count) || $count <= 0) {
             $this->error('Invalid input. Please enter a positive numeric value.');
             return;
         }
-
         User::factory()->count($count)->create();
         $this->info("Successfully created $count test users.");
     }

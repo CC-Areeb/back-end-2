@@ -17,7 +17,9 @@ class ToDoController extends Controller
     public function viewTask($id)
     {
         $task = ToDo::findOrFail($id);
-        dd($task);
+        return response()->json([
+            "task"=> $task->getTaskDisplayFields()
+        ], 200);
     }
 
     // Make task and notify the receiver
@@ -97,6 +99,18 @@ class ToDoController extends Controller
                     ]);
                 }
             }
+        } catch (Exception $error) {
+            return response()->json([
+                'status' => 400,
+                'message' => $error->getMessage(),
+            ]);
+        }
+    }
+
+    public function updateTaskStatus(Request $request)
+    {
+        try {
+            $task = ToDo::find($request->input('id'));
         } catch (Exception $error) {
             return response()->json([
                 'status' => 400,

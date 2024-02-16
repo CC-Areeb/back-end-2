@@ -14,12 +14,12 @@ class UserController extends Controller
     // show all users
     public function index()
     {
-        if (Gate::allow('superadmin')) {
+        if (Gate::allows('superadmin')) {
             try {
                 $users = User::orderBy('id', 'asc')->get();
                 return response()->json([
                     'status' => 200,
-                    'users' => $users
+                    'users' => $users->getUserDisplayFields()
                 ]);
             } catch (Exception $error) {
                 return response()->json([
@@ -37,7 +37,7 @@ class UserController extends Controller
                 $user = User::findorFail($id);
                 return response()->json([
                     'status' => 200,
-                    'user' => $user
+                    'user' => $user->getUserDisplayFields()
                 ]);
             } catch (Exception $error) {
                 return response()->json([
